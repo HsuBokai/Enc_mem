@@ -1,11 +1,9 @@
-#include "utils.h"
 #include "my_crypto.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <glib.h>
 #include <gcrypt.h>
-
 
 struct _My_crypto {
 	gcry_cipher_hd_t	_cipherhd;
@@ -14,7 +12,9 @@ struct _My_crypto {
 };
 
 My_crypto* new_My_crypto() {
-	if(is_debug==1) fprintf(stderr, "in new_My_crypto\n"); //debug
+#ifdef DEBUG
+	fprintf(stderr, "in new_My_crypto\n"); //debug
+#endif
 	My_crypto* ret = malloc(sizeof(My_crypto));
 	return ret;
 }
@@ -29,8 +29,9 @@ int init_My_crypto(My_crypto* obj, const char alg[], int mode) {
 
 
 void delete_My_crypto(My_crypto* obj) {
-	if(is_debug==1) fprintf(stderr, "in delete_My_crypto\n"); //debug
-
+#ifdef DEBUG
+	fprintf(stderr, "in delete_My_crypto\n"); //debug
+#endif
 	gcry_cipher_close(obj->_cipherhd);
 	obj->_cipherhd  = NULL;
 
@@ -99,7 +100,6 @@ int my_dec(My_crypto* obj, const unsigned char key[], const unsigned key_len, co
 int my_hash(const char alg[], const unsigned char input[], const unsigned int input_len, unsigned char output[]) {
 	int md = gcry_md_map_name(alg);
 	unsigned int mdlen = gcry_md_get_algo_dlen(md);
-	if(is_debug) fprintf(stderr, "mdlen = %d\n", mdlen);
 	gchar *keybuf = g_new0(gchar, mdlen);
 	memset(keybuf, 0, mdlen);
 	gcry_md_hash_buffer(md, keybuf, input, input_len);

@@ -26,5 +26,7 @@ int main(int argc, char *argv[])
 		else fprintf(stderr, "success!!\n");
 		memset(get_data, '\0', data_len);
 	}	
+	
+	delete_Enc_mem(obj);
 	return 0;
 }

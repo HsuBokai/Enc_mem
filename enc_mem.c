@@ -14,6 +14,7 @@ Enc_mem* new_Enc_mem(unsigned int len) {
 	fprintf(stderr, "in new_Enc_mem\n");
 #endif
 	Enc_mem* ret = malloc(sizeof(Enc_mem));
+	ret->_ptr = NULL;
 	ret->_data_len = len;
 	return ret;
 }

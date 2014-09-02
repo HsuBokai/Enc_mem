@@ -2,7 +2,7 @@ IDIR =./include
 CC=gcc
 CFLAGS=-I$(IDIR) `pkg-config --cflags --libs glib-2.0`  -lgcrypt
 
-ODIR=obj
+ODIR=.
 LDIR =./lib
 
 _DEPS = enc_mem.h my_crypto.h
